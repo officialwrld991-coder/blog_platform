@@ -1,21 +1,12 @@
+from typing import Optional
+from sqlmodel import Field, SQLModel
+from datetime import datetime
 import uuid
 
-from comment import Comment
-from blogger import Blogger
-from datetime import datetime
-
-class Post():
-    def __init__(self, title: str, content: str, author: Blogger):
-        self.title = title
-        self.post_id = str(uuid.uuid4())
-        self.content = content
-        self.author = author
-        self.comments = []
-        self.created_at = datetime.now()
-        self.is_published = False
-
-    def publish(self):
-        self.is_published = True
-
-    def add_comments(self, comments: Comment):
-        self.comments.append(comments)
+class Post(SQLModel, table=True):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()), primary_key=True)
+    title: str
+    content: str
+    author_id: str = Field(foreign_key="user.id")
+    is_published: bool = Field(default=False)
+    created_at: datetime = Field(default_factory=datetime.now)

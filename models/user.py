@@ -1,22 +1,12 @@
 from typing import Optional
 from sqlmodel import Field, SQLModel
+from datetime import datetime
+import uuid
 
 class User(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    name: str
-    email: str
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()), primary_key=True)
+    fullName: str
+    userName: str = Field(index=True, unique=True)
     password: str
-from abc import ABC, abstractmethod
-from user_role import Role
-
-class User(ABC):
-    def __init__(self, fullName: str, userName: str, password: str, role: Role):
-        self.fullName = fullName
-        self.userName = userName
-        self._password = password
-        self.role = role
-
-    @abstractmethod
-    def show_profile(self):
-        pass
-        
+    role: str = Field(default="GUEST")
+    
