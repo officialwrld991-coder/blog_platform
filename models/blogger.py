@@ -1,26 +1,33 @@
-import uuid
 
-from user import User
-from user_role import Role
-from datetime import datetime
-from post import Post
+from datetime import datetime, timezone
+from uuid import UUID, uuid4
+from typing import Optional
+from pydantic import BaseModel
+from models.user import User
+from models.user_role import Role
 
-class Blogger(User):
-    def __init__(self, fullName: str, userName: str, bio: str, password: str):
-        super().__init__(fullName, userName, bio, password, Role.BLOGGER)
-        self.bio = bio
-        self.posts = []
 
-    def showProfile(self):
-        return f"[BLOGGER] {self.userName} | Total Post {len(self.posts)}"
 
-    def createPost(self, title, content):
-        new_post = Post(post_id=str(uuid.uuid4()), title=title, content=content)
-        return new_post
+class createBlogger(BaseModel):
+    username: str
+    email: str
+    password: str
+    role = Role.BLOGGER
 
-    def deletePost(self, post):
-        if post in self.posts:
-            self.posts.remove(post)
-            return  True
-        return False
-    
+class updateBlogger(BaseModel):
+    username: Optional [str] = None
+    email: Optional [str] = None
+    password: Optional [str] = None
+
+class Blogger(User, table=True):
+    password: str
+
+class BloggerResponse(BaseModel):
+    id: UUID
+    username: str
+    email: str
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
+

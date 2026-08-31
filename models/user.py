@@ -1,12 +1,14 @@
-from typing import Optional
-from sqlmodel import Field, SQLModel
-from datetime import datetime
-import uuid
 
-class User(SQLModel, table=True):
-    id: str = Field(default_factory=lambda: str(uuid.uuid4()), primary_key=True)
-    fullName: str
-    userName: str = Field(index=True, unique=True)
-    password: str
-    role: str = Field(default="GUEST")
-    
+from datetime import datetime, timezone
+from uuid import UUID, uuid4
+from pydantic import EmailStr
+from sqlmodel import SQLModel, Field as SQLField
+
+
+class User(SQLModel, table=False):
+    id: UUID = SQLField(default_factory=uuid4, primary_key=True)
+    username: str = SQLField(unique=True, index=True)
+    email: EmailStr = SQLField(unique=True, index=True)
+    created_at: datetime = SQLField(
+        default_factory=lambda: datetime.now(timezone.utc)
+    )
