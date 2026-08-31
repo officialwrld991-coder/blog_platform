@@ -37,5 +37,26 @@ class TestAdminService:
         assert created_admin.id is not None
         assert created_admin.username == "first admin"
         assert created_admin.email == "adminone@gmail.com"
-        assert created_admin.password == "password123"
+        assert created_admin.password == "password"
         assert created_admin.role.value == "Admin"
+
+    def test_cannot_create_second_admin(self, session):
+        repository = AdminRepository(session)
+        service = AdminService(repository)
+
+        first_admin = CreateAdmin(
+            username="first admin",
+            email="adminone@gmail.com",
+            password="password",
+        )
+
+        service.create_first_admin(first_admin)
+
+        second_admin = CreateAdmin(
+            username="second admin",
+            email="admintwo@gmail.com",
+            password="password",
+        )
+
+        with pytest.raises(ValueError, match="An admin already exists"):
+            service.create_first_admin(second_admin)

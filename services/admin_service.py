@@ -8,6 +8,10 @@ class AdminService:
         self.repository = repository
 
     def create_first_admin(self, data: CreateAdmin) -> Admin:
+        existing_admins = self.repository.find_all()
+
+        if existing_admins:
+            raise ValueError("An admin already exists")
 
         admin = Admin(
             username=data.username,
