@@ -4,7 +4,8 @@ from uuid import UUID, uuid4
 from typing import Optional
 from pydantic import BaseModel
 from sqlmodel import SQLModel, Field
-from models.user_role import Role
+from app.models.user_role import Role
+
 class Blogger(SQLModel, table = True):
     id:UUID = Field(default_factory = uuid4, primary_key = True)
     username : str
@@ -14,11 +15,13 @@ class Blogger(SQLModel, table = True):
     created_at: datetime = Field(
         default_factory=lambda:datetime.now(timezone.utc)
     )
+
 class CreateBlogger(BaseModel):
     username: str
     email: str
     password: str
-    role = Role.BLOGGER
+    role :Role = Role.BLOGGER
+
 class UpdateBlogger(BaseModel):
     username: Optional [str] = None
     email: Optional [str] = None

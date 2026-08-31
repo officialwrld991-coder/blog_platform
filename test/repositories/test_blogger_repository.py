@@ -35,20 +35,13 @@
 #         assert blogger.password == "meg123"
 #         assert blogger.role == Role.BLOGGER
 import pytest
-from pytest import fixture
-from sqlmodel import SQLModel, Session, create_engine
-from models.blogger import Blogger
-from repositories.blogger_repository import BloggerRepository
 
-@pytest.mark.usefixtures('session')
-def session():
-    engine = create_engine('sqlite:///:memory:')
-    SQLModel.metadata.create_all(engine)
-    with Session(engine) as session:
-        yield session
+from app.models.blogger import Blogger
+from app.repositories.blogger_repository import BloggerRepository
 
-def test_that_i_save_blogger(session):
-    repository = BloggerRepository(session)
+
+def test_that_i_save_blogger(db_session):
+    repository = BloggerRepository(db_session)
 
     blogger = Blogger(
         username="collete",

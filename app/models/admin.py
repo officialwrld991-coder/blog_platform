@@ -1,9 +1,9 @@
-from datetime import datetime, timezone
-from uuid import UUID, uuid4
+from datetime import datetime
+from uuid import UUID
 from typing import Optional
 from pydantic import BaseModel
-from models.user import User
-from models.user_role import Role
+from app.models import User
+from app.models.user_role import Role
 
 
 class createAdmin(BaseModel):
