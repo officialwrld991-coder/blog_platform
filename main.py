@@ -7,6 +7,9 @@ from models.guest import Guest
 from models.post import Post
 from models.comment import Comment
 
+
+
+
 @asynccontextmanager
 async def lifespan(app:FastAPI):
     create_db_and_tables()
