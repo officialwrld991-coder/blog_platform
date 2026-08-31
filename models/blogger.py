@@ -1,3 +1,4 @@
+
 from datetime import datetime, timezone
 from uuid import UUID, uuid4
 from typing import Optional
@@ -29,5 +30,4 @@ class BloggerResponse(BaseModel):
 
     class Config:
         from_attributes = True
-
 

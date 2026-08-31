@@ -1,3 +1,4 @@
+
 from datetime import datetime, timezone
 from uuid import UUID, uuid4
 from pydantic import EmailStr
@@ -11,4 +12,3 @@ class User(SQLModel, table=False):
     created_at: datetime = SQLField(
         default_factory=lambda: datetime.now(timezone.utc)
     )
-
