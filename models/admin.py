@@ -1,23 +1,29 @@
 from datetime import datetime, timezone
 from uuid import UUID, uuid4
 from typing import Optional
-from pydantic import BaseModel
-from models.user import User
+from pydantic import BaseModel, EmailStr
+from sqlmodel import SQLModel ,Field as SQLField
+
 from models.user_role import Role
 
 
-class createAdmin(BaseModel):
+class CreateAdmin(BaseModel):
     username: str
     email: str
     password: str
-    role = Role.ADMIN
 
-class updateAdmin(BaseModel):
+class UpdateAdmin(BaseModel):
     username: Optional [str] = None
     email: Optional [str] = None
     password: Optional [str] = None
 
-class Admin(User, table=True):
+class Admin(SQLModel, table=True):
+    id: UUID = SQLField(default_factory=uuid4, primary_key=True)
+    username: str = SQLField(unique=True, index=True)
+    email: EmailStr = SQLField(unique=True, index=True)
+    role: Role = SQLField(default=Role.ADMIN)
+    created_at: datetime = SQLField(
+        default_factory=lambda: datetime.now(timezone.utc))
     password: str
 
 class AdminResponse(BaseModel):

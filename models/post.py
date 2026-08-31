@@ -16,7 +16,7 @@ class updatePost(BaseModel):
     content: Optional[str] = None
 
 class Post(SQLModel, table=True):
-    post_id: UUID = SQLField(default_factory=uuid4, primary_key=True)
+    id: UUID = SQLField(default_factory=uuid4, primary_key=True)
     title: str = SQLField(index=True)
     content: str
     blogger_id: UUID = SQLField(foreign_key="blogger.id", index=True)
