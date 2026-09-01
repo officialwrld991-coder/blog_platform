@@ -3,4 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="uv (blog_platform)" />
   </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="uv (blog_platform)" project-jdk-type="Python SDK" />
 </project>

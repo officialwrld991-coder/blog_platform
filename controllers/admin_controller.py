@@ -14,7 +14,7 @@ router = APIRouter(
 
 
 @router.post(
-    "/first-admin",
+    "/first",
     response_model=CreateAdminResponse,
 )
 def create_first_admin(
@@ -25,3 +25,22 @@ def create_first_admin(
     service = AdminService(repository)
 
     return service.create_first_admin(data)
+
+@router.post(
+    "/create",
+    response_model=CreateAdminResponse,
+)
+def create_admin(
+    data: CreateAdminRequest,
+    admin_username: str,
+    admin_password: str,
+    session: Session = Depends(get_session),
+):
+    repository = AdminRepository(session)
+    service = AdminService(repository)
+
+    return service.create_admin(
+        data=data,
+        admin_username=admin_username,
+        admin_password=admin_password,
+    )

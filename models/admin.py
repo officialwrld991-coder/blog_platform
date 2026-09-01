@@ -15,13 +15,6 @@ class Admin(SQLModel, table=True):
         default_factory=lambda: datetime.now(timezone.utc))
     password: str
 
-class AdminResponse(BaseModel):
-    id: UUID
-    username: str
-    email: str
-    created_at: datetime
 
-    class Config:
-        from_attributes = True
 
 
