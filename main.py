@@ -1,6 +1,13 @@
 from fastapi import FastAPI
 from database import create_db_and_tables
 from contextlib import asynccontextmanager
+from controllers.admin_controller import router as admin_router
+from models.admin import Admin
+from models.blogger import Blogger
+from models.guest import Guest
+from models.post import Post
+from models.comment import Comment
+
 
 
 @asynccontextmanager
@@ -10,8 +17,4 @@ async def lifespan(app:FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
-import uvicorn
-
-if __name__ == "__main__":
-    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
-
+app.include_router(admin_router)

@@ -21,7 +21,7 @@ class Comment(SQLModel, table=True):
     content: str
     post_id: UUID = SQLField(foreign_key="post.id", index=True)
     blogger_id: Optional[UUID] = SQLField(default=None, foreign_key="blogger.id", index=True)
-    guest_id: Optional[UUID] = SQLField(default=None, foreign_key="guestaccount.id", index=True)
+    guest_id: Optional[UUID] = SQLField(default=None, foreign_key="guest.id", index=True)
     created_at: datetime = SQLField(
         default_factory=lambda: datetime.now(timezone.utc)
     )
