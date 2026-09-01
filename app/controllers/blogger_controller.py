@@ -95,16 +95,13 @@ def update_blogger(
     session: Session = Depends(get_session)
 ):
     service = BloggerService(session)
-
     blogger = service.find_blogger_by_id(blogger_id)
 
     if blogger is None:
         raise HTTPException(status_code=404, detail="Blogger not found")
-
     blogger.username = blogger_data.username
     blogger.email = blogger_data.email
     blogger.password = blogger_data.password
-
     updated_blogger = service.update_blogger(blogger)
 
     return {

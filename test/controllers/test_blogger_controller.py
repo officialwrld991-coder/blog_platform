@@ -144,3 +144,17 @@ def test_that_i_can_update_a_blogger(client, db_session):
 
     assert data["username"] == "collete"
     assert data["email"] == "collete@gmail.com"
+
+def test_that_i_get_404_when_updating_blogger_does_not_exist(client):
+    blogger_id = uuid4()
+
+    response = client.put(
+        f"/bloggers/{blogger_id}",
+        json={
+            "username": "collete",
+            "email": "collete@gmail.com",
+            "password": "newpassword"
+        }
+    )
+
+    assert response.status_code == 404
