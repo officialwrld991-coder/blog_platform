@@ -22,19 +22,19 @@ class TestAdminRepository:
         repository = AdminRepository(session)
         admin = Admin(
             username = "admin",
-            email = "admin@example.com",
+            email = "admin@gmail.com",
             password = "password",
         )
         saved_admin = repository.save_admin(admin)
 
         assert saved_admin.username == "admin"
-        assert saved_admin.email == "admin@example.com"
+        assert saved_admin.email == "admin@gmail.com"
 
     def test_find_by_id(self, session):
         repository = AdminRepository(session)
         admin = Admin(
             username="admintwo",
-            email="admintwo@example.com",
+            email="admintwo@gmail.com",
             password="passwordtwo",
         )
         saved_admin = repository.save_admin(admin)
@@ -47,7 +47,7 @@ class TestAdminRepository:
         repository = AdminRepository(session)
         admin = Admin(
             username="adminthree",
-            email="adminthree@example.com",
+            email="adminthree@gmail.com",
             password="passwordthree",
         )
         saved_admin = repository.save_admin(admin)
@@ -60,7 +60,7 @@ class TestAdminRepository:
         repository = AdminRepository(session)
         admin = Admin(
             username="adminfour",
-            email="adminfour@example.com",
+            email="adminfour@gmail.com",
             password="passwordfour",
         )
         saved_admin = repository.save_admin(admin)
@@ -72,12 +72,12 @@ class TestAdminRepository:
         repository = AdminRepository(session)
         admin1 = Admin(
             username="adminfive",
-            email="adminfive@example.com",
+            email="adminfive@gmail.com",
             password="passwordfive",
         )
         admin2 = Admin(
             username="adminsix",
-            email="adminsix@example.com",
+            email="adminsix@gmail.com",
             password="passwordsix",
         )
         first_saved = repository.save_admin(admin1)
@@ -92,23 +92,23 @@ class TestAdminRepository:
         repository = AdminRepository(session)
         admin = Admin(
             username="old_username",
-            email="old@example.com",
+            email="old@gmail.com",
             password="passwordold",
         )
         saved_admin = repository.save_admin(admin)
         saved_admin.username = "new_username"
-        saved_admin.email = "new@example.com"
+        saved_admin.email = "new@gmail.com"
         updated_admin = repository.update_admin(saved_admin)
 
         assert updated_admin.username == "new_username"
-        assert updated_admin.email == "new@example.com"
+        assert updated_admin.email == "new@gmail.com"
 
 
     def test_delete_admin(self, session):
         repository = AdminRepository(session)
         admin = Admin(
             username="delete_admin",
-            email="delete@example.com",
+            email="delete@gmail.com",
             password="password",
         )
         saved_admin = repository.save_admin(admin)

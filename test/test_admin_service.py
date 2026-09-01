@@ -1,9 +1,9 @@
 import pytest
 from sqlmodel import SQLModel, Session, create_engine
-from models.admin import Admin, CreateAdmin
+from dtos.requests import CreateAdminRequest
 from repositories.admin_repository import AdminRepository
 from services.admin_service import AdminService
-
+from utils.password import verify_password
 
 engine = create_engine(
     "sqlite://",
@@ -26,7 +26,7 @@ class TestAdminService:
         repository = AdminRepository(session)
         service = AdminService(repository)
 
-        data = CreateAdmin(
+        data = CreateAdminRequest(
             username="first admin",
             email="adminone@gmail.com",
             password="password",
@@ -37,14 +37,13 @@ class TestAdminService:
         assert created_admin.id is not None
         assert created_admin.username == "first admin"
         assert created_admin.email == "adminone@gmail.com"
-        assert created_admin.password == "password"
         assert created_admin.role.value == "Admin"
 
     def test_cannot_create_second_admin(self, session):
         repository = AdminRepository(session)
         service = AdminService(repository)
 
-        first_admin = CreateAdmin(
+        first_admin = CreateAdminRequest(
             username="first admin",
             email="adminone@gmail.com",
             password="password",
@@ -52,7 +51,7 @@ class TestAdminService:
 
         service.create_first_admin(first_admin)
 
-        second_admin = CreateAdmin(
+        second_admin = CreateAdminRequest(
             username="second admin",
             email="admintwo@gmail.com",
             password="password",
