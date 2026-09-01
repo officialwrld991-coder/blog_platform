@@ -1,5 +1,5 @@
-from models.blogger import Blogger
-from models.user_role import Role
+from app.models.blogger import Blogger
+from app.models import Role
 
 
 def test_create_blogger():
