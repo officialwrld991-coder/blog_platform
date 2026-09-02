@@ -1,9 +1,9 @@
-
 from uuid import UUID, uuid4
 from typing import Optional
 from datetime import datetime, timezone
 from pydantic import BaseModel
 from sqlmodel import SQLModel, Field as SQLField
+
 
 class createComment(BaseModel):
     content: str
