@@ -73,3 +73,32 @@ class AdminService:
             role=admin.role,
         )
 
+    def delete_admin_by_username(
+            self,
+            username: str,
+            admin_username: str,
+            admin_password: str,
+    ):
+        current_admin = self.repository.find_by_username(admin_username)
+
+        if current_admin is None:
+            raise PermissionError("Invalid admin credentials")
+
+        if not verify_password(
+                admin_password,
+                current_admin.password,
+        ):
+            raise PermissionError("Invalid admin credentials")
+
+        if current_admin.role != Role.ADMIN:
+            raise PermissionError("Only an admin can create another admin")
+
+        if admin_username == username:
+            raise ValueError("You cannot delete your own admin account while logged in")
+
+        deleted_admin = self.repository.find_by_username(username)
+        if not deleted_admin:
+            raise ValueError(f"Admin with username '{username}' not found")
+        self.repository.delete_admin(deleted_admin)
+        return f"Admin with username '{username}' deleted"
+
