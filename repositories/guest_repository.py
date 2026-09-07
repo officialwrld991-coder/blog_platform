@@ -40,8 +40,3 @@ class GuestRepository:
     def delete_guest(self, guest: Guest) -> None:
         self.session.delete(guest)
         self.session.commit()
-
-
-
-
-
