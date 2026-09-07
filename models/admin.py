@@ -4,8 +4,6 @@ from pydantic import BaseModel, EmailStr
 from sqlmodel import SQLModel ,Field as SQLField
 from models.user_role import Role
 
-
-
 class Admin(SQLModel, table=True):
     id: UUID = SQLField(default_factory=uuid4, primary_key=True)
     username: str = SQLField(unique=True, index=True)

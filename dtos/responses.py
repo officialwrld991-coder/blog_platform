@@ -26,6 +26,12 @@ class CreateAdminResponse(BaseModel):
     username: str
     role: Role
 
+class CreateGuestResponse(BaseModel):
+    id: UUID
+    email: EmailStr
+    username: str
+    role: Role
+
     class Config:
         from_attributes = True
 

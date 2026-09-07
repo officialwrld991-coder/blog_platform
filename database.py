@@ -1,8 +1,8 @@
 from sqlmodel import SQLModel, create_engine, Session
 from urllib.parse import quote_plus
 
-engine = create_engine(f"mysql+pymysql://user1:"
-                       f"{quote_plus('password')}"
+engine = create_engine(f"mysql+pymysql://root:"
+                       f"{quote_plus('Linux@3000')}"
                        f"@localhost:3306/blog_platform")
 
 def create_db_and_tables():
