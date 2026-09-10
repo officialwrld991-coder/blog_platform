@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from database import create_db_and_tables
 from contextlib import asynccontextmanager
 from controllers.admin_controller import router as admin_router
+from controllers.blogger_controller import router as blogger_router
 from models.admin import Admin
 from models.blogger import Blogger
 from models.guest import Guest
@@ -18,3 +19,4 @@ async def lifespan(app:FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 app.include_router(admin_router)
+app.include_router(blogger_router)
